@@ -1,36 +1,51 @@
-import React from 'react';
-import styled from 'styled-components';
-
+import React from "react";
+import styled from "styled-components";
 
 const Container = styled.View`
-    flex: 1;
-    background-color: red;
-    flexDirection: row;
-`
+  background-color: red;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-self: center
+  margin: 20px;
+`;
 
-const TextArea = styled.Text`
-    flex : 1;
-    font-size: 40px;
-    color: green;
-`
+const Text = styled.Text`
+  font-size: 30px;
+  color: yellow;
+`;
 
-const InputArea =styled.TextInput`
-    flex : 3;
-    background-color : black;
-`
+const TextArea = styled.View`
+  justify-content: center;
+  align-items:center
+  width: 60px
+  height: 50px
+`;
 
-const IDPW = () => {
+const Input = styled.TextInput`
+  color: white;
+  font-size: 20px;
+  height: 50px;
+  padding-left: 10px;
+`;
 
-    return (
-        <Container style={{height: '30%', width: '50%'}}>
-        <TextArea>
-            ID
-        </TextArea>
-        <InputArea>
-        
-        </InputArea>
+const InputArea = styled.View`
+  background-color: black;
+  width: 200px;
+  height: 50px;
+`;
+
+const IDPW = ({ title }) => {
+  return (
+    <Container>
+      <TextArea>
+        <Text>{title}</Text>
+      </TextArea>
+      <InputArea>
+        <Input />
+      </InputArea>
     </Container>
-    );
+  );
 };
 
 export default IDPW;

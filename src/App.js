@@ -1,27 +1,15 @@
-import React from 'react';
-import styled from 'styled-components/native'
-import IDPW from './components/IDPW';
+import React from "react";
+import styled from "styled-components/native";
+import { Login } from "./screens";
 
+const Container = styled.View``;
 
-const Container = styled.SafeAreaView`
-    flex: 1;
-    background-color: blue;
-    justify-content: flex-start;
-
-`
-
-
+const Text = styled.Text`
+  color: black;
+`;
 
 export default function App() {
-
-    return (
-        <Container>
-            <IDPW>
-
-            </IDPW>
-            <IDPW>
-                
-            </IDPW>
-        </Container>
-    )
+  return <Login />;
 }
+
+// navigation, themeprovider, redux 요것들도 넣어야 하니 구글링해서 공부합시다 ㅋㅋㅋㅋ
