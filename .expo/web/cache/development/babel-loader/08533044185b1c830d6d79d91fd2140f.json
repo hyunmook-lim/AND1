@@ -1,0 +1,1 @@
+{"ast":null,"code":"import App from \"./src/App\";\nexport default App;","map":{"version":3,"sources":["C:/Users/alsue/Programming/Mobile/AND1/App.js"],"names":["App"],"mappings":"AAAA,OAAOA,GAAP;AAEA,eAAeA,GAAf","sourcesContent":["import App from './src/App'\r\n\r\nexport default App;\r\n"]},"metadata":{},"sourceType":"module"}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import IDPW from \"./IDPW\";\nexport { IDPW };","map":{"version":3,"sources":["C:/Users/alsue/Programming/Mobile/AND1/src/components/index.js"],"names":["IDPW"],"mappings":"AAAA,OAAOA,IAAP;AAEA,SAASA,IAAT","sourcesContent":["import IDPW from \"./IDPW\";\r\n\r\nexport { IDPW };\r\n"]},"metadata":{},"sourceType":"module"}

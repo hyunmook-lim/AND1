@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Login from \"./Login\";\nexport { Login };","map":{"version":3,"sources":["C:/Users/alsue/Programming/Mobile/AND1/src/screens/index.js"],"names":["Login"],"mappings":"AAAA,OAAOA,KAAP;AAEA,SAASA,KAAT","sourcesContent":["import Login from \"./Login\";\r\n\r\nexport { Login };\r\n"]},"metadata":{},"sourceType":"module"}
