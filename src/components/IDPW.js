@@ -35,14 +35,14 @@ const InputArea = styled.View`
   height: 50px;
 `;
 
-const IDPW = ({ title }) => {
+const IDPW = ({ title, placeholder }) => {
   return (
     <Container>
       <TextArea>
         <Text>{title}</Text>
       </TextArea>
       <InputArea>
-        <Input />
+        <Input placeholder={placeholder} placeholderTextColor="gray" />
       </InputArea>
     </Container>
   );
