@@ -1,3 +1,4 @@
-import IDPW from "./IDPW";
+import EmailPW from "./EmailPW";
+import SocialLogin from "./SocialLogin";
 
-export { IDPW };
+export { EmailPW, SocialLogin };

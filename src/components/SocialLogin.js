@@ -1,10 +1,9 @@
 import React from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components";
 
-const SocialLoginContainer = styled.View`
+const Container = styled.View`
   height: 60px;
-  width: 300px;
+  width: 280px;
   flex-direction: row;
   background-color: skyblue;
   justify-content: space-evenly;
@@ -24,13 +23,13 @@ const SocialLoginText = styled.Text`
   color: black;
 `;
 
-function socialLogin() {
+function SocialLogin() {
   const buttonClickHandler = () => {
     console.log("social login button clicked!");
   };
 
   return (
-    <SocialLoginContainer>
+    <Container>
       <SocialLoginButton onPress={buttonClickHandler}>
         <SocialLoginText>Naver</SocialLoginText>
       </SocialLoginButton>
@@ -40,8 +39,8 @@ function socialLogin() {
       <SocialLoginButton onPress={buttonClickHandler}>
         <SocialLoginText>Google</SocialLoginText>
       </SocialLoginButton>
-    </SocialLoginContainer>
+    </Container>
   );
 }
 
-export default socialLogin;
+export default SocialLogin;
