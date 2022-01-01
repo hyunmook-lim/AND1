@@ -5,7 +5,6 @@ const Container = styled.View`
   height: 60px;
   width: 280px;
   flex-direction: row;
-  background-color: skyblue;
   justify-content: space-evenly;
   align-items: center;
 `;
@@ -13,7 +12,7 @@ const Container = styled.View`
 const SocialLoginButton = styled.TouchableOpacity`
   width: 50px;
   height: 50px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.socialLogin}
   border-radius: 100px;
   justify-content: center;
   align-items: center;

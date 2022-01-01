@@ -1,4 +1,5 @@
 import EmailPW from "./EmailPW";
 import SocialLogin from "./SocialLogin";
+import FriendProfile from "./FriendProfile";
 
-export { EmailPW, SocialLogin };
+export { EmailPW, SocialLogin, FriendProfile };

@@ -1,11 +1,32 @@
 import React from "react";
 import styled from "styled-components/native";
 import SocialLogin from "../components/SocialLogin";
+import { useSelector, useDispatch } from "react-redux";
+import { LoginAction } from "../actions/LoginAction";
 
 const Container = styled.SafeAreaView`
   flex: 1;
-  margin: 8px
   align-items: center;
+  background-color: ${({ theme }) => theme.background};
+`;
+
+const TestLoginContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  position: absolute
+  top: 14%;
+  bottom: 70%
+  right: 10%;
+  left: 10%
+`;
+
+const TestLogin = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.button}
+  justify-content: center;
+  align-items:center
+  width: 150px;
+  height: 50px;
+  border-radius: 15px
 `;
 
 const TitleContainer = styled.View`
@@ -20,9 +41,8 @@ const TitleContainer = styled.View`
 
 const Title = styled.Text`
   font-size: 50px;
-  color: white;
-  background-color: black;
-  padding: 20px;
+  color: ${({ theme }) => theme.normalText};
+  font-weight: bold;
 `;
 
 const LogoContainer = styled.View`
@@ -38,7 +58,7 @@ const LogoContainer = styled.View`
 const Logo = styled.View`
   height: 200px;
   width: 200px;
-  background-color: black;
+  border: solid 1px;
 `;
 
 const EmailLoginContainer = styled.View`
@@ -66,30 +86,46 @@ const EmailLoginButton = styled.TouchableOpacity`
   height: 50px;
   align-items: center;
   justify-content: center
-  background-color: #c4c4c4;
+  background-color: ${({ theme }) => theme.button}
   border-radius: 20px
 `;
 
 const EmailLoginText = styled.Text`
   font-size: 20px;
-  color: black;
+  color: ${({ theme }) => theme.normalText};
 `;
 
 export default function Login({ navigation }) {
+  const dispatch = useDispatch();
+  const { testLogin } = useSelector((state) => {
+    return { testLogin: state.loginInfo.testLogin };
+  });
+
+  function _EmailLoginButton() {
+    navigation.navigate("EmailLogin");
+    console.log("Login page: move to email login page");
+  }
+
   return (
     <Container>
       <TitleContainer>
         <Title>AND1</Title>
       </TitleContainer>
+      <TestLoginContainer>
+        <TestLogin
+          onPress={() => {
+            dispatch(LoginAction(true));
+            console.log("Login page: Login");
+          }}
+        >
+          <Title style={{ fontSize: 20 }}>Test Login</Title>
+        </TestLogin>
+      </TestLoginContainer>
       <LogoContainer>
         <Logo />
       </LogoContainer>
       <EmailLoginContainer>
-        <EmailLoginButton
-          onPress={() => {
-            navigation.navigate("EmailLogin");
-          }}
-        >
+        <EmailLoginButton onPress={_EmailLoginButton}>
           <EmailLoginText>이메일로 로그인 하기</EmailLoginText>
         </EmailLoginButton>
       </EmailLoginContainer>

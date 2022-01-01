@@ -4,8 +4,8 @@ import { EmailPW } from "../components";
 
 const Container = styled.SafeAreaView`
   flex: 1;
-  margin: 8px;
   align-items: center;
+  background-color: ${({ theme }) => theme.background};
 `;
 
 const SigninContainer = styled.View`
@@ -21,7 +21,7 @@ const SigninButton = styled.TouchableOpacity`
   align-items: center;
 `;
 const SigninText = styled.Text`
-  color: black;
+  color: ${({ theme }) => theme.normalText};
   font-size: 20px;
   font-weight: bold;
 `;
@@ -55,16 +55,20 @@ const FindPWButton = styled.TouchableOpacity`
 `;
 
 const FindIDPWText = styled.Text`
-  color: gray;
+  color: ${({ theme }) => theme.grayText};
   font-size: 20px;
   margin: 10px;
 `;
 
-export default function EmailLogin() {
+export default function EmailLogin({ navigation }) {
+  function _SigninButton() {
+    navigation.navigate("Signin");
+    console.log(`Email login page: move to sign in page`);
+  }
   return (
     <Container>
       <SigninContainer>
-        <SigninButton>
+        <SigninButton onPress={_SigninButton}>
           <SigninText>회원가입하기</SigninText>
         </SigninButton>
       </SigninContainer>

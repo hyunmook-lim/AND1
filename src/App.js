@@ -1,16 +1,12 @@
 import React from "react";
-import styled from "styled-components/native";
-import { Login } from "./screens";
 import Navigation from "./navigations";
-
-const Container = styled.View``;
-
-const Text = styled.Text`
-  color: black;
-`;
+import { Provider } from "react-redux";
+import store from "./store";
 
 export default function App() {
-  return <Navigation />;
+  return (
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  );
 }
-
-// navigation, themeprovider, redux 요것들도 넣어야 하니 구글링해서 공부합시다 ㅋㅋㅋㅋ

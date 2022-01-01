@@ -1,5 +1,5 @@
 import React from "react";
-import { EmailLogin, Login } from "../screens";
+import { EmailLogin, Login, Singin } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
@@ -18,6 +18,11 @@ export default function LoginStack() {
         name="EmailLogin"
         component={EmailLogin}
         options={{ title: "이메일로 로그인" }}
+      />
+      <Stack.Screen
+        name="Signin"
+        component={Singin}
+        options={{ title: "이메일로 회원가입" }}
       />
     </Stack.Navigator>
   );

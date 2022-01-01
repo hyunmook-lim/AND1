@@ -8,7 +8,7 @@ const Container = styled.View`
 `;
 
 const MiddleContainer = styled.View`
-background-color: lightgray;
+  background-color: ${({ theme }) => theme.emailPWInput}
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,7 @@ const TextArea = styled.View`
 
 const Text = styled.Text`
   font-size: 22px;
-  color: black;
+  color: ${({ theme }) => theme.normalText};
 `;
 
 const InputArea = styled.View`
