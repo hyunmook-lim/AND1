@@ -106,8 +106,8 @@ export default function Login({ navigation }) {
   });
 
   async function _EmailLoginButton() {
-    // navigation.navigate("EmailLogin");
-    // console.log("Login page: move to email login page");
+    navigation.navigate("EmailLogin");
+    console.log("Login page: move to email login page");
   }
 
   return (
