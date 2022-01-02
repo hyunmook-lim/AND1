@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Alert } from "react-native";
 import styled from "styled-components/native";
 import SocialLogin from "../components/SocialLogin";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,6 +10,9 @@ const Container = styled.SafeAreaView`
   align-items: center;
   background-color: ${({ theme }) => theme.background};
 `;
+
+import { initializeApp } from "firebase/app";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const TestLoginContainer = styled.View`
   justify-content: center;
@@ -101,9 +105,9 @@ export default function Login({ navigation }) {
     return { testLogin: state.loginInfo.testLogin };
   });
 
-  function _EmailLoginButton() {
-    navigation.navigate("EmailLogin");
-    console.log("Login page: move to email login page");
+  async function _EmailLoginButton() {
+    // navigation.navigate("EmailLogin");
+    // console.log("Login page: move to email login page");
   }
 
   return (

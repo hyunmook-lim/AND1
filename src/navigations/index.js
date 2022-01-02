@@ -14,7 +14,7 @@ export default function Navigation() {
 
   return (
     <ThemeProvider theme={color}>
-      <StatusBar backgroundColor={"transparent"} barStyle="dark-content" />
+      <StatusBar backgroundColor={color.background} barStyle="dark-content" />
       <NavigationContainer>
         {testLogin ? <MainTab /> : <LoginStack />}
       </NavigationContainer>
