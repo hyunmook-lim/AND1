@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components/native";
-import { EmailPW } from "../components";
+import { LoginEmailPW } from "../components";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -8,7 +8,7 @@ const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.background};
 `;
 
-const SigninContainer = styled.View`
+const SignupContainer = styled.View`
   position: absolute;
   top: 10px;
   right: 30px;
@@ -16,11 +16,11 @@ const SigninContainer = styled.View`
   align-items: center;
 `;
 
-const SigninButton = styled.TouchableOpacity`
+const SignupButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
-const SigninText = styled.Text`
+const SignupText = styled.Text`
   color: ${({ theme }) => theme.normalText};
   font-size: 20px;
   font-weight: bold;
@@ -28,14 +28,14 @@ const SigninText = styled.Text`
 
 const IDPWContainer = styled.View`
   position: absolute;
-  top: 100px;
+  top: 40px;
   justify-content: center;
   align-items: center;
 `;
 
 const FindIDPWContainer = styled.View`
   position: absolute;
-  top: 220px;
+  top: 240px;
   flex-direction: row
   justify-content: center;
   align-items: center;
@@ -56,24 +56,24 @@ const FindPWButton = styled.TouchableOpacity`
 
 const FindIDPWText = styled.Text`
   color: ${({ theme }) => theme.grayText};
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.normalTextSize}
   margin: 10px;
 `;
 
 export default function EmailLogin({ navigation }) {
-  function _SigninButton() {
-    navigation.navigate("Signin");
+  function _SignupButton() {
+    navigation.navigate("Signup");
     console.log(`Email login page: move to sign in page`);
   }
   return (
     <Container>
-      <SigninContainer>
-        <SigninButton onPress={_SigninButton}>
-          <SigninText>회원가입하기</SigninText>
-        </SigninButton>
-      </SigninContainer>
+      <SignupContainer>
+        <SignupButton onPress={_SignupButton}>
+          <SignupText>회원가입하기</SignupText>
+        </SignupButton>
+      </SignupContainer>
       <IDPWContainer>
-        <EmailPW />
+        <LoginEmailPW />
       </IDPWContainer>
       <FindIDPWContainer>
         <FindIDButton>

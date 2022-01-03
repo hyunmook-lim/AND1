@@ -1,57 +1,61 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
+import { Alert, Dimensions } from "react-native";
+
+const width = Dimensions.get("window").width;
 
 const Container = styled.View`
-  margin: 1px;
   justify-content: center;
   align-items: center;
 `;
 
 const MiddleContainer = styled.View`
-  background-color: ${({ theme }) => theme.emailPWInput}
-  flex-direction: row;
+  width: ${width}px
   justify-content: center;
   align-items: center;
   border-radius: 10px
-  margin: 10px;
+  margin: 3px;
 `;
 
 const TextArea = styled.View`
   justify-content: center;
   align-items: center;
-  width: 70px;
+  width: 80%
   height: 50px;
-  border-right-color: black;
-  border-right-width: 1.5px;
+  padding-left: 10px
 `;
 
 const Text = styled.Text`
-  font-size: 22px;
-  color: ${({ theme }) => theme.normalText};
+  align-self: flex-start
+  font-size: 18px;
+  color: ${({ theme }) => theme.grayText};
 `;
 
 const InputArea = styled.View`
-  width: 220px;
+  width: 80%;
   height: 50px;
+  background-color: ${({ theme }) => theme.emailPWInput};
+  opacity: 0.7
   align-items: flex-start;
   justify-content: center;
+  border-radius: 12px
 `;
 
 const Input = styled.TextInput`
   color: black;
   font-size: 16px;
   height: 50px;
-  padding-left: 10px;
+  padding-left: 15px;
 `;
 
-export default function EmailPW() {
+export default function SigninEmailPW() {
   const passwordRef = useRef();
 
   return (
     <Container>
       <MiddleContainer>
         <TextArea>
-          <Text>Email</Text>
+          <Text>E mail</Text>
         </TextArea>
         <InputArea>
           <Input
@@ -62,13 +66,14 @@ export default function EmailPW() {
             onSubmitEditing={() => {
               passwordRef.current.focus();
             }}
+            onPress={() => Alert.alert("hihi")}
             autoComplete="email"
           />
         </InputArea>
       </MiddleContainer>
       <MiddleContainer>
         <TextArea>
-          <Text>PW</Text>
+          <Text>비밀번호</Text>
         </TextArea>
         <InputArea>
           <Input

@@ -1,6 +1,6 @@
 export const color = {
   background: "#D5FFFF",
-  button: "#D7D9F4",
+  button: "#94F7B2",
   titleBackground: "#0059FF",
   normalText: "#324B4B",
   grayText: "#95B0B0",
@@ -11,4 +11,8 @@ export const color = {
   friendContainer: "#D7D9F4",
   profileContainer: "#6dfacd",
   basicPicture: "gray",
+  titleTextSize: "50px",
+  normalTextSize: "18px",
+  buttonTextSize: "20px",
+  buttonHeight: "50px",
 };

@@ -10,6 +10,11 @@ const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.background};
 `;
 
+const ScrollContainer = styled.ScrollView`
+  flex: 1;
+  width: 100%;
+`;
+
 const MiddleContainer = styled.View`
   width: 94%;
   align-self: center;
@@ -20,11 +25,6 @@ const MiddleContainer = styled.View`
   margin-top: 8px
   margin-bottom: 8px
   border-radius: 10px;
-`;
-
-const ScrollView = styled.ScrollView`
-  flex: 1;
-  width: 100%;
 `;
 
 const Te = styled.Text`
@@ -62,7 +62,7 @@ const Text = styled.Text`
 export default function FriendList() {
   return (
     <Container>
-      <ScrollView>
+      <ScrollContainer>
         <MiddleContainer>
           <MyProfile>
             <MyPicture />
@@ -101,7 +101,7 @@ export default function FriendList() {
           <FriendProfile />
           <FriendProfile />
         </MiddleContainer>
-      </ScrollView>
+      </ScrollContainer>
       <Text>Friends List Page</Text>
     </Container>
   );

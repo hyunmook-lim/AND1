@@ -4,15 +4,13 @@ import styled from "styled-components/native";
 import SocialLogin from "../components/SocialLogin";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginAction } from "../actions/LoginAction";
+import { login } from "../data/firebase";
 
 const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
   background-color: ${({ theme }) => theme.background};
 `;
-
-import { initializeApp } from "firebase/app";
-import { signInWithEmailAndPassword } from "firebase/auth";
 
 const TestLoginContainer = styled.View`
   justify-content: center;
@@ -27,10 +25,16 @@ const TestLoginContainer = styled.View`
 const TestLogin = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.button}
   justify-content: center;
-  align-items:center
+  align-items: center;
   width: 150px;
-  height: 50px;
-  border-radius: 15px
+  height: ${({ theme }) => theme.buttonHeight};
+  border-radius: 15px;
+`;
+
+const TestLoginText = styled.Text`
+  font-size: ${({ theme }) => theme.buttonTextSize};
+  font-weight: bold;
+  color: ${({ theme }) => theme.normalText};
 `;
 
 const TitleContainer = styled.View`
@@ -44,7 +48,7 @@ const TitleContainer = styled.View`
 `;
 
 const Title = styled.Text`
-  font-size: 50px;
+  font-size: ${({ theme }) => theme.titleTextSize}
   color: ${({ theme }) => theme.normalText};
   font-weight: bold;
 `;
@@ -94,20 +98,19 @@ const EmailLoginButton = styled.TouchableOpacity`
   border-radius: 20px
 `;
 
-const EmailLoginText = styled.Text`
-  font-size: 20px;
+const EmailLoginButtonText = styled.Text`
+  font-size: ${({ theme }) => theme.buttonTextSize}
   color: ${({ theme }) => theme.normalText};
+  font-weight: bold
 `;
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
-  const { testLogin } = useSelector((state) => {
-    return { testLogin: state.loginInfo.testLogin };
-  });
 
-  async function _EmailLoginButton() {
+  function _EmailLoginButton() {
     navigation.navigate("EmailLogin");
     console.log("Login page: move to email login page");
+    // console.log(user._W.providerData[0].displayName);
   }
 
   return (
@@ -122,7 +125,7 @@ export default function Login({ navigation }) {
             console.log("Login page: Login");
           }}
         >
-          <Title style={{ fontSize: 20 }}>Test Login</Title>
+          <TestLoginText>Test Login</TestLoginText>
         </TestLogin>
       </TestLoginContainer>
       <LogoContainer>
@@ -130,7 +133,7 @@ export default function Login({ navigation }) {
       </LogoContainer>
       <EmailLoginContainer>
         <EmailLoginButton onPress={_EmailLoginButton}>
-          <EmailLoginText>이메일로 로그인 하기</EmailLoginText>
+          <EmailLoginButtonText>이메일로 로그인 하기</EmailLoginButtonText>
         </EmailLoginButton>
       </EmailLoginContainer>
       <SocialLoginContainer>
