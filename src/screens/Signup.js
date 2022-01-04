@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components/native";
 import { Alert, Dimensions } from "react-native";
+import { signup } from "../data/firebase";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -46,7 +47,7 @@ const InputArea = styled.View`
   opacity: 0.7
   align-items: flex-start;
   justify-content: center;
-  border-radius: 12px
+  border-radius: 12px;
 `;
 
 const Input = styled.TextInput`
@@ -54,14 +55,8 @@ const Input = styled.TextInput`
   font-size: 16px;
   height: 50px;
   padding-left: 15px;
-`;
-
-const SignupButtonContainer = styled.View`
-  width: ${width}px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  margin-top: ${height * 0.1}px;
+  padding-right: 15px;
+  width: 100%;
 `;
 
 const SignupButtonText = styled.Text`
@@ -108,15 +103,55 @@ export default function Singup() {
   }, [name, email, password, rePassWord]);
 
   useEffect(() => {
-    setDisabled(
-      !(name && email && password && rePassWord && password == rePassWord)
-    );
-  }, [name, email, password, rePassWord]);
+    setDisabled(!(name && email && password && rePassWord && !errorMessage));
+  }, [name, email, password, rePassWord, errorMessage]);
 
-  function _SignupButton() {
-    Alert.alert("알림", "hi!");
-    console.log("Signup page: signup button clicked");
+  function AlertSignup() {
+    Alert.alert(
+      "알림",
+      "해당 정보로 회원가입 하시겠습니까?",
+      [
+        { text: "아니요" },
+        {
+          text: "네",
+          onPress: _SignupButton,
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () =>
+          Alert.alert(
+            "This alert was dismissed by tapping outside of the alert dialog."
+          ),
+      }
+    );
   }
+
+  async function _SignupButton() {
+    try {
+      const user = await signup(email, password);
+      console.log("Signup page: signup button clicked");
+    } catch (e) {
+      if (e.message == "Firebase: Error (auth/email-already-in-use).") {
+        Alert.alert(
+          "이메일 오류",
+          `이미 가입된 이메일입니다\n다른 이메일으로 등록해 주시길 바랍니다`
+        );
+        console.log(`Signup page: signup failed reason: ${e.message}`);
+      } else {
+        Alert.alert("정보를 올바르게 입력해주세요");
+        console.log(`Signup page: signup failed reason: ${e.message}`);
+      }
+    }
+  }
+
+  const SignupButtonContainer = styled.View`
+    width: ${width}px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: ${disabled ? height * 0.049 : height * 0.12}px;
+  `;
 
   const SignupButton = styled.TouchableOpacity`
     justify-content: center;
@@ -148,6 +183,8 @@ export default function Singup() {
               placeholderTextColor="gray"
               autoComplete="name"
               returnKeyType="next"
+              autoFocus={true}
+              maxLength={15}
             />
           </InputArea>
         </MiddleContainer>
@@ -170,6 +207,7 @@ export default function Singup() {
               autoComplete="email"
               returnKeyType="next"
               keyboardType="email-address"
+              maxLength={30}
             />
           </InputArea>
         </MiddleContainer>
@@ -192,6 +230,7 @@ export default function Singup() {
               secureTextEntry={true}
               autoComplete="password"
               returnKeyType="next"
+              maxLength={30}
             />
           </InputArea>
         </MiddleContainer>
@@ -214,6 +253,8 @@ export default function Singup() {
               secureTextEntry={true}
               autoComplete="password"
               returnKeyType="done"
+              blurOnSubmit={true}
+              maxLength={30}
             />
           </InputArea>
         </MiddleContainer>
@@ -225,12 +266,7 @@ export default function Singup() {
           </MiddleContainer>
         ) : null}
         <SignupButtonContainer>
-          <SignupButton
-            onPress={() => {
-              _SignupButton();
-            }}
-            disabled={disabled}
-          >
+          <SignupButton onPress={AlertSignup} disabled={disabled}>
             <SignupButtonText>회원가입</SignupButtonText>
           </SignupButton>
         </SignupButtonContainer>
