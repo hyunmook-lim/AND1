@@ -136,7 +136,6 @@ export default function EmailLogin({ navigation }) {
   async function _onPressLoginButton() {
     try {
       const user = await login(email, password);
-      console.log(user);
       dispatch(LoginAction(email, password));
     } catch (e) {
       if (e.message == "Firebase: Error (auth/wrong-password).") {

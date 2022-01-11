@@ -54,6 +54,7 @@ export default function Setting() {
         >
           <TestText>Test Logout</TestText>
         </TestLogout>
+        <Text>email: {}</Text>
       </TestLogoutContainer>
       <Text>Setting Page</Text>
     </Container>

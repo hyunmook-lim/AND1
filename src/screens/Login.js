@@ -111,6 +111,7 @@ export default function Login({ navigation }) {
     console.log("Login page: move to email login page");
   }
 
+  const name = "육정수";
   const email = "codepam2020@gmail.com";
   const password = "codepam2020";
 
@@ -122,7 +123,7 @@ export default function Login({ navigation }) {
       <TestLoginContainer>
         <TestLogin
           onPress={() => {
-            dispatch(LoginAction(email, password));
+            dispatch(LoginAction(name, email, password));
             console.log("Login page: Login");
           }}
         >
