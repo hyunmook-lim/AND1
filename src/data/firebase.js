@@ -3,6 +3,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -26,7 +27,8 @@ export const login = async (email, password) => {
 };
 
 // signin function by firebase
-export const signup = async (email, password) => {
+export const signup = async (email, password, name) => {
   const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
   return user;
 };

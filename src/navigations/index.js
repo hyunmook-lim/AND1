@@ -8,15 +8,15 @@ import MainTab from "./MainTab";
 import { color } from "../data/color";
 
 export default function Navigation() {
-  const { testLogin } = useSelector((state) => {
-    return { testLogin: state.loginInfo.testLogin };
+  const { loginInfo } = useSelector((state) => {
+    return { loginInfo: state.loginInfo.email };
   });
 
   return (
     <ThemeProvider theme={color}>
       <StatusBar backgroundColor={color.background} barStyle="dark-content" />
       <NavigationContainer>
-        {testLogin ? <MainTab /> : <LoginStack />}
+        {loginInfo ? <MainTab /> : <LoginStack />}
       </NavigationContainer>
     </ThemeProvider>
   );

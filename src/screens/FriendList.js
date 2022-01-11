@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
+import { useSelector } from "react-redux";
 import { color } from "../data/color";
 import { FriendProfile } from "../components";
 
@@ -60,6 +61,14 @@ const Text = styled.Text`
 `;
 
 export default function FriendList() {
+  const loginInfo = useSelector((state) => {
+    return state.loginInfo;
+  });
+
+  useEffect(() => {
+    console.log(loginInfo);
+  }, []);
+
   return (
     <Container>
       <ScrollContainer>

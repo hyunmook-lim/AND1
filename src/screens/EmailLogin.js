@@ -1,6 +1,11 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Alert, Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { LoginEmailPW } from "../components";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../data/firebase";
+import { LoginAction } from "../actions/LoginAction";
+
+const width = Dimensions.get("window").width;
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -33,9 +38,50 @@ const IDPWContainer = styled.View`
   align-items: center;
 `;
 
+const MiddleContainer = styled.View`
+  width: ${width}px
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px
+  margin: 3px;
+`;
+
+const TextArea = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 80%
+  height: 50px;
+  padding-left: 10px
+`;
+
+const Text = styled.Text`
+  align-self: flex-start
+  font-size: ${({ theme }) => theme.normalTextSize}
+  color: ${({ theme }) => theme.grayText};
+`;
+
+const InputArea = styled.View`
+  width: 80%;
+  height: 50px;
+  background-color: ${({ theme }) => theme.emailPWInput};
+  opacity: 0.7
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 12px
+`;
+
+const Input = styled.TextInput`
+  color: black;
+  font-size: 15px;
+  height: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+`;
+
 const FindIDPWContainer = styled.View`
   position: absolute;
-  top: 240px;
+  top: 235px;
   flex-direction: row
   justify-content: center;
   align-items: center;
@@ -60,11 +106,62 @@ const FindIDPWText = styled.Text`
   margin: 10px;
 `;
 
+const LoginButtonContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: ${width}px;
+  top: 330px;
+`;
+
+const LoginButtonText = styled.Text`
+  font-size: ${({ theme }) => theme.buttonTextSize}
+  font-weight: bold;
+  color: ${({ theme }) => theme.normalText}
+`;
+
 export default function EmailLogin({ navigation }) {
+  const dispatch = useDispatch();
+
+  passwordRef = useRef();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(true);
+
   function _SignupButton() {
     navigation.navigate("Signup");
     console.log(`Email login page: move to sign in page`);
   }
+
+  async function _onPressLoginButton() {
+    try {
+      const user = await login(email, password);
+      console.log(user);
+      dispatch(LoginAction(email, password));
+    } catch (e) {
+      if (e.message == "Firebase: Error (auth/wrong-password).") {
+        Alert.alert("비밀번호를 확인해주세요");
+        console.log(`EmailLoginPage: login error\nerror message: ${e.message}`);
+      } else {
+        Alert.alert("존재하지않는 이메일 계정입니다");
+        console.log(`EmailLoginPage: login error\nerror message: ${e.message}`);
+      }
+    }
+  }
+
+  useEffect(() => {
+    setDisabled(!(email && password));
+  }, [email, password]);
+
+  const LoginButton = styled.TouchableOpacity`
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 50px;
+    background-color: ${({ theme }) => theme.button};
+    border-radius: 12px;
+    opacity: ${disabled ? "0.25" : "1"};
+  `;
   return (
     <Container>
       <SignupContainer>
@@ -73,7 +170,52 @@ export default function EmailLogin({ navigation }) {
         </SignupButton>
       </SignupContainer>
       <IDPWContainer>
-        <LoginEmailPW />
+        <MiddleContainer>
+          <TextArea>
+            <Text>E mail</Text>
+          </TextArea>
+          <InputArea>
+            <Input
+              placeholder="이메일을 입력하세요"
+              keyboardType="email-address"
+              placeholderTextColor="gray"
+              returnKeyType="next"
+              onChangeText={(text) => {
+                setEmail(text);
+              }}
+              onSubmitEditing={() => {
+                passwordRef.current.focus();
+              }}
+              onPress={() => Alert.alert("hihi")}
+              autoComplete="email"
+              autoFocus={true}
+              maxLength={30}
+              value={email}
+            />
+          </InputArea>
+        </MiddleContainer>
+        <MiddleContainer>
+          <TextArea>
+            <Text>비밀번호</Text>
+          </TextArea>
+          <InputArea>
+            <Input
+              ref={passwordRef}
+              onChangeText={(text) => {
+                setPassword(text);
+              }}
+              placeholder="비밀번호를 입력하세요"
+              placeholderTextColor="gray"
+              secureTextEntry={true}
+              autoComplete="password"
+              blurOnsubmit={true}
+              value={password}
+              maxLength={30}
+              returnKeyType="done"
+              onSubmitEditing={_onPressLoginButton}
+            />
+          </InputArea>
+        </MiddleContainer>
       </IDPWContainer>
       <FindIDPWContainer>
         <FindIDButton>
@@ -83,6 +225,11 @@ export default function EmailLogin({ navigation }) {
           <FindIDPWText>패스워드 찾기</FindIDPWText>
         </FindPWButton>
       </FindIDPWContainer>
+      <LoginButtonContainer>
+        <LoginButton onPress={_onPressLoginButton} disabled={disabled}>
+          <LoginButtonText>로그인</LoginButtonText>
+        </LoginButton>
+      </LoginButtonContainer>
     </Container>
   );
 }

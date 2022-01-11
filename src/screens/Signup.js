@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components/native";
 import { Alert, Dimensions } from "react-native";
-import { signup } from "../data/firebase";
+import { signup, signupName } from "../data/firebase";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -52,7 +52,7 @@ const InputArea = styled.View`
 
 const Input = styled.TextInput`
   color: black;
-  font-size: 16px;
+  font-size: 15px;
   height: 50px;
   padding-left: 15px;
   padding-right: 15px;
@@ -71,7 +71,7 @@ const ErrorMessageText = styled.Text`
   font-size: ${({ theme }) => theme.normalTextSize};
 `;
 
-export default function Singup() {
+export default function Singup({ navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -114,7 +114,7 @@ export default function Singup() {
         { text: "아니요" },
         {
           text: "네",
-          onPress: _SignupButton,
+          onPress: _Signup,
         },
       ],
       {
@@ -127,10 +127,11 @@ export default function Singup() {
     );
   }
 
-  async function _SignupButton() {
+  async function _Signup() {
     try {
-      const user = await signup(email, password);
+      const user = await signup(email, password, name);
       console.log("Signup page: signup button clicked");
+      navigation.navigate("EmailLogin");
     } catch (e) {
       if (e.message == "Firebase: Error (auth/email-already-in-use).") {
         Alert.alert(
@@ -149,8 +150,8 @@ export default function Singup() {
     width: ${width}px;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
     margin-top: ${disabled ? height * 0.049 : height * 0.12}px;
+    margin-bottom: 15px;
   `;
 
   const SignupButton = styled.TouchableOpacity`
@@ -245,9 +246,7 @@ export default function Singup() {
               onChangeText={(text) => {
                 setRePassWord(text);
               }}
-              onSubmitEditing={() => {
-                _SignupButton();
-              }}
+              onSubmitEditing={AlertSignup}
               placeholder="비밀번호를 다시 입력하세요"
               placeholderTextColor="gray"
               secureTextEntry={true}

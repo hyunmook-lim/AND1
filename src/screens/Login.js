@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 import SocialLogin from "../components/SocialLogin";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginAction } from "../actions/LoginAction";
-import { login } from "../data/firebase";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -107,11 +106,13 @@ const EmailLoginButtonText = styled.Text`
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
-  function _EmailLoginButton() {
+  async function _EmailLoginButton() {
     navigation.navigate("EmailLogin");
     console.log("Login page: move to email login page");
-    // console.log(user._W.providerData[0].displayName);
   }
+
+  const email = "codepam2020@gmail.com";
+  const password = "codepam2020";
 
   return (
     <Container>
@@ -121,7 +122,7 @@ export default function Login({ navigation }) {
       <TestLoginContainer>
         <TestLogin
           onPress={() => {
-            dispatch(LoginAction(true));
+            dispatch(LoginAction(email, password));
             console.log("Login page: Login");
           }}
         >
