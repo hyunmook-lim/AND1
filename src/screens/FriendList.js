@@ -65,10 +65,6 @@ export default function FriendList() {
     return state.loginInfo;
   });
 
-  useEffect(() => {
-    console.log(loginInfo);
-  }, []);
-
   return (
     <Container>
       <ScrollContainer>

@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import SocialLogin from "../components/SocialLogin";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginAction } from "../actions/LoginAction";
+import { readLoginInfo } from "../data/firebase";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -123,7 +124,9 @@ export default function Login({ navigation }) {
       <TestLoginContainer>
         <TestLogin
           onPress={() => {
-            dispatch(LoginAction(name, email, password));
+            // dispatch(LoginAction(name, email, password));
+            const choco = readLoginInfo(email);
+            console.log(choco);
             console.log("Login page: Login");
           }}
         >
