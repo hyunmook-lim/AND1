@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Alert, Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../data/firebase";
+import { login, readLoginInfo } from "../data/firebase";
 import { LoginAction } from "../actions/LoginAction";
+import { ProgressAction } from "../actions/ProgressAction";
 
 const width = Dimensions.get("window").width;
 
@@ -135,9 +136,13 @@ export default function EmailLogin({ navigation }) {
 
   async function _onPressLoginButton() {
     try {
+      dispatch(ProgressAction(true));
       const user = await login(email, password);
-      dispatch(LoginAction(email, password));
+      const loginInfo = await readLoginInfo(email);
+      dispatch(LoginAction(loginInfo.name, email, password));
+      dispatch(ProgressAction(false));
     } catch (e) {
+      dispatch(ProgressAction(false));
       if (e.message == "Firebase: Error (auth/wrong-password).") {
         Alert.alert("비밀번호를 확인해주세요");
         console.log(`EmailLoginPage: login error\nerror message: ${e.message}`);

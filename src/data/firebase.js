@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -16,6 +15,7 @@ import {
   getDoc,
   getDocsFromServer,
 } from "firebase/firestore";
+import { Alert } from "react-native";
 
 const firebaseConfig = {
   apiKey: "AIzaSyApbMMayz04SMlrUbmbyQLI0M28rGW7OZ4",
@@ -53,7 +53,8 @@ export const signup = async (email, password, name) => {
 
 // Read login data
 export const readLoginInfo = async (email) => {
-  const docRef = doc(db, "user-info", "codepam2020@gmail.com");
+  const docRef = doc(db, "user-info", email);
   const docSnap = await getDoc(docRef);
-  return docSnap;
+  const data = docSnap.data();
+  return data;
 };

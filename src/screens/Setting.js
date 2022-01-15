@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginAction } from "../actions/LoginAction";
 
 const TestLogoutContainer = styled.View`
@@ -37,12 +37,29 @@ const Container = styled.SafeAreaView`
 
 const Text = styled.Text`
   color: ${({ theme }) => theme.normalText}
+  position: absolute
   font-size: 40px;
   font-weight: bold
 `;
 
+const InfoContainer = styled.View`
+  flex: 0.44;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+const InfoText = styled.Text`
+  font-size: 20px;
+  color: ${({ theme }) => theme.normalText};
+`;
+
 export default function Setting() {
   const dispatch = useDispatch();
+
+  const loginInfo = useSelector((state) => {
+    return state.loginInfo;
+  });
+
   return (
     <Container>
       <TestLogoutContainer>
@@ -54,8 +71,10 @@ export default function Setting() {
         >
           <TestText>Test Logout</TestText>
         </TestLogout>
-        <Text>email: {}</Text>
       </TestLogoutContainer>
+      <InfoContainer>
+        <InfoText>{`name\n${loginInfo.name}\n\nemail\n${loginInfo.email}`}</InfoText>
+      </InfoContainer>
       <Text>Setting Page</Text>
     </Container>
   );

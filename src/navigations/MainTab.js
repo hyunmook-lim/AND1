@@ -3,7 +3,7 @@ import { StatusBar } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FriendList, MakingGroup, TeamSearch, Setting } from "../screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { color } from "../data/color";
+import { theme } from "../data/theme";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,8 +17,8 @@ export default function MainTab() {
       initialRouteName="FriendList"
       screenOptions={{
         headerShown: false,
-        tabBarInactiveTintColor: color.tabBarInactive,
-        tabBarActiveTintColor: color.tabBarActive,
+        tabBarInactiveTintColor: theme.tabBarInactive,
+        tabBarActiveTintColor: theme.tabBarActive,
         tabBarStyle: {
           height: 65,
           paddingBottom: 4,

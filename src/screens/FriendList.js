@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { useSelector } from "react-redux";
-import { color } from "../data/color";
 import { FriendProfile } from "../components";
 
 const Container = styled.SafeAreaView`
@@ -44,6 +43,19 @@ const MyProfile = styled.View`
   margin-bottom: 40px
 `;
 
+const MyProfileContainer = styled.View`
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2px;
+  padding-left: 20px;
+`;
+
+const MyProfileNameText = styled.Text`
+  color: ${({ theme }) => theme.normalText};
+  font-size: 22px
+  font-weight: bold;
+`;
+
 const MyPicture = styled.View`
   width: 70px;
   height: 70px;
@@ -71,6 +83,9 @@ export default function FriendList() {
         <MiddleContainer>
           <MyProfile>
             <MyPicture />
+            <MyProfileContainer>
+              <MyProfileNameText>{loginInfo.name}</MyProfileNameText>
+            </MyProfileContainer>
           </MyProfile>
           <FriendProfile />
           <FriendProfile />

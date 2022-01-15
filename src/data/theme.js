@@ -1,4 +1,4 @@
-export const color = {
+export const theme = {
   background: "#D5FFFF",
   button: "#94F7B2",
   titleBackground: "#0059FF",
@@ -15,4 +15,6 @@ export const color = {
   normalTextSize: "18px",
   buttonTextSize: "20px",
   buttonHeight: "50px",
+  loadingBackground: "black",
+  loadingIndicator: "white",
 };

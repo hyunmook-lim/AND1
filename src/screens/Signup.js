@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components/native";
+import { useDispatch } from "react-redux";
 import { Alert, Dimensions } from "react-native";
 import { signup, signupName } from "../data/firebase";
+import { ProgressAction } from "../actions/ProgressAction";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -72,6 +74,7 @@ const ErrorMessageText = styled.Text`
 `;
 
 export default function Singup({ navigation }) {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -129,10 +132,13 @@ export default function Singup({ navigation }) {
 
   async function _Signup() {
     try {
+      dispatch(ProgressAction(true));
       const user = await signup(email, password, name);
       console.log("Signup page: signup button clicked");
       navigation.navigate("EmailLogin");
+      dispatch(ProgressAction(false));
     } catch (e) {
+      dispatch(ProgressAction(false));
       if (e.message == "Firebase: Error (auth/email-already-in-use).") {
         Alert.alert(
           "이메일 오류",

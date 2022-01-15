@@ -5,6 +5,7 @@ import SocialLogin from "../components/SocialLogin";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginAction } from "../actions/LoginAction";
 import { readLoginInfo } from "../data/firebase";
+import { ProgressAction } from "../actions/ProgressAction";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -112,9 +113,12 @@ export default function Login({ navigation }) {
     console.log("Login page: move to email login page");
   }
 
-  const name = "육정수";
   const email = "codepam2020@gmail.com";
   const password = "codepam2020";
+
+  const progress = useSelector((state) => {
+    return state.progress;
+  });
 
   return (
     <Container>
@@ -123,10 +127,11 @@ export default function Login({ navigation }) {
       </TitleContainer>
       <TestLoginContainer>
         <TestLogin
-          onPress={() => {
-            // dispatch(LoginAction(name, email, password));
-            const choco = readLoginInfo(email);
-            console.log(choco);
+          onPress={async () => {
+            dispatch(ProgressAction(true));
+            const data = await readLoginInfo(email);
+            dispatch(ProgressAction(false));
+            dispatch(LoginAction(data.name, email, password));
             console.log("Login page: Login");
           }}
         >
