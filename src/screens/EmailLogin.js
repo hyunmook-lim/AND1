@@ -195,6 +195,7 @@ export default function EmailLogin({ navigation }) {
               autoFocus={true}
               maxLength={30}
               value={email}
+              autoCapitalize="none"
             />
           </InputArea>
         </MiddleContainer>
