@@ -5,18 +5,23 @@ import { ThemeProvider } from "styled-components/native";
 import { useSelector } from "react-redux";
 import LoginStack from "./LoginStack";
 import MainTab from "./MainTab";
-import { color } from "../data/color";
+import { theme } from "../data/theme";
+import { Loading } from "../components";
 
 export default function Navigation() {
-  const { testLogin } = useSelector((state) => {
-    return { testLogin: state.loginInfo.testLogin };
+  const { loginInfo, progress } = useSelector((state) => {
+    return {
+      loginInfo: state.loginInfo.email,
+      progress: state.progress.progress,
+    };
   });
 
   return (
-    <ThemeProvider theme={color}>
-      <StatusBar backgroundColor={color.background} barStyle="dark-content" />
+    <ThemeProvider theme={theme}>
+      <StatusBar backgroundColor={theme.background} barStyle="dark-content" />
       <NavigationContainer>
-        {testLogin ? <MainTab /> : <LoginStack />}
+        {loginInfo ? <MainTab /> : <LoginStack />}
+        {progress && <Loading />}
       </NavigationContainer>
     </ThemeProvider>
   );

@@ -1,3 +1,5 @@
+// not used
+
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { Alert, Dimensions } from "react-native";
@@ -46,9 +48,11 @@ const Input = styled.TextInput`
   font-size: 15px;
   height: 50px;
   padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
 `;
 
-export default function LoginEmailPW() {
+export default function LoginEmailPW(email, password) {
   const passwordRef = useRef();
 
   return (
@@ -68,6 +72,9 @@ export default function LoginEmailPW() {
             }}
             onPress={() => Alert.alert("hihi")}
             autoComplete="email"
+            autoFocus={true}
+            maxLength={15}
+            value={email}
           />
         </InputArea>
       </MiddleContainer>
@@ -81,7 +88,9 @@ export default function LoginEmailPW() {
             placeholder="비밀번호를 입력하세요"
             placeholderTextColor="gray"
             secureTextEntry={true}
-            autoComplete="name"
+            autoComplete="password"
+            blurOnsubmit={true}
+            value={password}
           />
         </InputArea>
       </MiddleContainer>
