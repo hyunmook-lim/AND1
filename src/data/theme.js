@@ -11,10 +11,11 @@ export const theme = {
   friendContainer: "#D7D9F4",
   profileContainer: "#6dfacd",
   basicPicture: "gray",
+  loadingBackground: "black",
+  loadingIndicator: "white",
+
   titleTextSize: "50px",
   normalTextSize: "18px",
   buttonTextSize: "20px",
   buttonHeight: "50px",
-  loadingBackground: "black",
-  loadingIndicator: "white",
 };

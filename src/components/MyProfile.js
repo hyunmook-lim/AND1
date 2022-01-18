@@ -2,15 +2,15 @@ import React from "react";
 import styled from "styled-components/native";
 
 const Container = styled.TouchableOpacity`
-  height: 60px;
+  height: 80px;
   width: 98%;
   background-color: ${({ theme }) => theme.profileContainer};
   border-radius: 10px;
   flex-direction: row;
   align-items: center;
   padding: 2px 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px
+  margin-bottom: 25px;
 `;
 
 const PictureContainer = styled.TouchableOpacity`
@@ -21,9 +21,9 @@ const PictureContainer = styled.TouchableOpacity`
 `;
 
 const Picture = styled.View`
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
   background-color: ${({ theme }) => theme.basicPicture};
 `;
 
@@ -36,18 +36,18 @@ const ProfileTextContainer = styled.View`
 
 const ProfileText = styled.Text`
   color: ${({ theme }) => theme.normalText};
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
 `;
 
-export default function FriendProfile({
+export default function MyProfile({
   name,
-  profilePictureClick,
-  profileClick,
+  myProfilePictureClick,
+  myProfileClick,
 }) {
   return (
-    <Container onPress={profileClick}>
-      <PictureContainer onPress={profilePictureClick}>
+    <Container onPress={myProfileClick}>
+      <PictureContainer onPress={myProfilePictureClick}>
         <Picture />
       </PictureContainer>
       <ProfileTextContainer>

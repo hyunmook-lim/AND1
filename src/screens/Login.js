@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Alert } from "react-native";
 import styled from "styled-components/native";
 import SocialLogin from "../components/SocialLogin";
 import { useSelector, useDispatch } from "react-redux";
