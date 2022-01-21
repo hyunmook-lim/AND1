@@ -20,8 +20,8 @@ export default function MainTab() {
         tabBarInactiveTintColor: theme.tabBarInactive,
         tabBarActiveTintColor: theme.tabBarActive,
         tabBarStyle: {
-          height: 65,
-          paddingBottom: 4,
+          height: 70,
+          paddingBottom: 6,
           justifyContent: "center",
           alignItems: "center",
         },

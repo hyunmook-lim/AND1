@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { useSelector } from "react-redux";
 import { FriendProfile, MyProfile } from "../components";
-import { Dimensions } from "react-native";
+import { Dimensions, Vibration } from "react-native";
 
 const height = Dimensions.get("window").height;
 
@@ -67,6 +67,10 @@ export default function FriendList() {
             myProfilePictureClick={() => {
               console.log("Friend List Page: my profile picture clicked");
             }}
+            myProfileLongClick={() => {
+              Vibration.vibrate(30);
+              console.log(`Friend List: my profile long click`);
+            }}
           />
 
           {friendList.sort().map((name) => (
@@ -79,6 +83,10 @@ export default function FriendList() {
               profilePictureClick={() => {
                 console.log("Friend List Page: profile picture clicked");
               }}
+              profileLongClick={() => {
+                Vibration.vibrate(30);
+                console.log(`Friend List: profile long click`);
+              }}
             />
           ))}
         </MiddleContainer>
@@ -86,3 +94,5 @@ export default function FriendList() {
     </Container>
   );
 }
+
+// friends information >> key value, id == email

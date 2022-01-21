@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
+import { theme } from "../data/theme";
 
-const Container = styled.TouchableOpacity`
+const Container = styled.Pressable`
   height: 80px;
   width: 98%;
-  background-color: ${({ theme }) => theme.profileContainer};
   border-radius: 10px;
   flex-direction: row;
   align-items: center;
@@ -44,9 +44,21 @@ export default function MyProfile({
   name,
   myProfilePictureClick,
   myProfileClick,
+  myProfileLongClick,
 }) {
   return (
-    <Container onPress={myProfileClick}>
+    <Container
+      onPress={myProfileClick}
+      onLongPress={myProfileLongClick}
+      delayLongPress={500}
+      style={({ pressed }) => [
+        {
+          backgroundColor: pressed
+            ? theme.profileContainerActivated
+            : theme.profileContainer,
+        },
+      ]}
+    >
       <PictureContainer onPress={myProfilePictureClick}>
         <Picture />
       </PictureContainer>

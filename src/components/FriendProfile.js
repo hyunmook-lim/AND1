@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
+import { theme } from "../data/theme";
 
-const Container = styled.TouchableOpacity`
+const Container = styled.Pressable`
   height: 60px;
   width: 98%;
-  background-color: ${({ theme }) => theme.profileContainer};
   border-radius: 10px;
   flex-direction: row;
   align-items: center;
@@ -13,7 +13,7 @@ const Container = styled.TouchableOpacity`
   margin-bottom: 5px;
 `;
 
-const PictureContainer = styled.TouchableOpacity`
+const PictureContainer = styled.Pressable`
   justify-content: center;
   align-items: center;
   padding-left: 5px;
@@ -44,9 +44,21 @@ export default function FriendProfile({
   name,
   profilePictureClick,
   profileClick,
+  profileLongClick,
 }) {
   return (
-    <Container onPress={profileClick}>
+    <Container
+      onPress={profileClick}
+      onLongPress={profileLongClick}
+      delayLongPress={500}
+      style={({ pressed }) => [
+        {
+          backgroundColor: pressed
+            ? theme.profileContainerActivated
+            : theme.profileContainer,
+        },
+      ]}
+    >
       <PictureContainer onPress={profilePictureClick}>
         <Picture />
       </PictureContainer>

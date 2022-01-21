@@ -4,6 +4,7 @@ import FriendProfile from "./FriendProfile";
 import SigninEmailPW from "./SigninEmailPW";
 import Loading from "./Loading";
 import MyProfile from "./MyProfile";
+import TeamSearchTextInput from "./TeamSearchTextInput";
 
 export {
   LoginEmailPW,
@@ -12,4 +13,5 @@ export {
   SigninEmailPW,
   Loading,
   MyProfile,
+  TeamSearchTextInput,
 };
