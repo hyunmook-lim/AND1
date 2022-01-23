@@ -1,7 +1,9 @@
 export const theme = {
   background: "#D5FFFF",
   button: "#94F7B2",
-  buttonActivated: "#A7AF8B",
+  buttonActivated: "#D5FFFF",
+  button2: "#FF8848",
+  button2Activated: "#DAB9E4",
   titleBackground: "#0059FF",
   normalText: "#324B4B",
   grayText: "#95B0B0",

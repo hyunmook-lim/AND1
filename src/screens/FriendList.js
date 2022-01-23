@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useSelector } from "react-redux";
 import { FriendProfile, MyProfile } from "../components";
 import { Dimensions, Vibration } from "react-native";
+import { theme } from "../data/theme";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const height = Dimensions.get("window").height;
 
@@ -31,12 +33,24 @@ const MiddleContainer = styled.View`
   border-radius: 10px;
 `;
 
-const Te = styled.Text`
-  color: black;
-  font-size: 30px;
-`;
-
 export default function FriendList() {
+  const [isScroll, setIsScroll] = useState(false);
+  const [popUp, setPopUp] = useState(false);
+
+  const FreindSettingIconContainer = styled.Pressable`
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 30px;
+    right: 28px;
+    width: 64px;
+    height: 64px;
+
+    opacity: ${isScroll ? 0.6 : 1}
+    border-radius: 32px;
+    background-color: pink;
+  `;
+
   const loginInfo = useSelector((state) => {
     return state.loginInfo;
   });
@@ -55,21 +69,59 @@ export default function FriendList() {
     "이범배",
   ];
 
+  // my profile click event
+  function _myProfileClick(loginInfo) {
+    console.log(
+      `Friend List Page: my profile(name: ${loginInfo.name}, email: ${loginInfo.email}) clicked`
+    );
+  }
+
+  function _myProfilePictureClick() {
+    console.log("Friend List Page: my profile picture clicked");
+  }
+
+  function _myProfileLongClick() {
+    Vibration.vibrate(30);
+    console.log(`Friend List: my profile long click`);
+  }
+
+  // friends profile click event
+  function _profileClick(friendName) {
+    console.log(
+      `Friend List Page: friend profile(name: ${friendName}) clicked`
+    );
+  }
+
+  function _profilePictureClick() {
+    console.log(`Friend List Page: profile picture clicked`);
+  }
+
+  function _profileLongClick() {
+    Vibration.vibrate(30);
+    console.log(`Friend List: profile long click`);
+  }
+
   return (
     <Container>
-      <ScrollContainer>
+      <ScrollContainer
+        onScrollBeginDrag={() => {
+          setIsScroll(true);
+        }}
+        onMomentumScrollEnd={() => {
+          setIsScroll(false);
+        }}
+      >
         <MiddleContainer>
           <MyProfile
             name={loginInfo.name}
             myProfileClick={() => {
-              console.log("Friend List Page: my profile clicked");
+              _myProfileClick(loginInfo);
             }}
             myProfilePictureClick={() => {
-              console.log("Friend List Page: my profile picture clicked");
+              _myProfilePictureClick();
             }}
             myProfileLongClick={() => {
-              Vibration.vibrate(30);
-              console.log(`Friend List: my profile long click`);
+              _myProfileLongClick();
             }}
           />
 
@@ -78,19 +130,28 @@ export default function FriendList() {
               key={name}
               name={name}
               profileClick={() => {
-                console.log("Friend List Page: profile clicked");
+                _profileClick(name);
               }}
               profilePictureClick={() => {
-                console.log("Friend List Page: profile picture clicked");
+                _profilePictureClick();
               }}
               profileLongClick={() => {
-                Vibration.vibrate(30);
-                console.log(`Friend List: profile long click`);
+                _profileLongClick();
               }}
             />
           ))}
         </MiddleContainer>
       </ScrollContainer>
+      <FreindSettingIconContainer
+        style={({ pressed }) => [
+          { backgroundColor: pressed ? theme.button2Activated : theme.button2 },
+        ]}
+        onPress={() => {
+          setPopUp(true);
+        }}
+      >
+        <MaterialCommunityIcons name="dots-vertical" size={35} />
+      </FreindSettingIconContainer>
     </Container>
   );
 }
