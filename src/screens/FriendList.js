@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useSelector } from "react-redux";
 import { FriendProfile, MyProfile } from "../components";
-import { Dimensions, Vibration } from "react-native";
+import {
+  Dimensions,
+  Vibration,
+  Alert,
+  Modal,
+  View,
+  StyleSheet,
+  Text,
+  Pressable,
+} from "react-native";
 import { theme } from "../data/theme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -35,7 +44,7 @@ const MiddleContainer = styled.View`
 
 export default function FriendList() {
   const [isScroll, setIsScroll] = useState(false);
-  const [popUp, setPopUp] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const FreindSettingIconContainer = styled.Pressable`
     justify-content: center;
@@ -147,13 +156,78 @@ export default function FriendList() {
           { backgroundColor: pressed ? theme.button2Activated : theme.button2 },
         ]}
         onPress={() => {
-          setPopUp(true);
+          setModalVisible(true);
         }}
       >
         <MaterialCommunityIcons name="dots-vertical" size={35} />
       </FreindSettingIconContainer>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+});
 
 // friends information >> key value, id == email
