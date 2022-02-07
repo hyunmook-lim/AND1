@@ -5,6 +5,8 @@ import FriendList from "./FriendList";
 import MakingGroup from "./MakingGroup";
 import TeamSearch from "./TeamSearch";
 import Setting from "./Setting";
+import AddFriend from "./AddFriend";
+import FriendSetting from "./FriendSetting";
 
 export {
   Login,
@@ -14,4 +16,6 @@ export {
   MakingGroup,
   TeamSearch,
   Setting,
+  AddFriend,
+  FriendSetting,
 };

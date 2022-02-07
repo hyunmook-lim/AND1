@@ -42,7 +42,7 @@ const MiddleContainer = styled.View`
   border-radius: 10px;
 `;
 
-export default function FriendList() {
+export default function FriendList({ navigation }) {
   const [isScroll, setIsScroll] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -54,10 +54,36 @@ export default function FriendList() {
     right: 28px;
     width: 64px;
     height: 64px;
-
     opacity: ${isScroll ? 0.6 : 1}
     border-radius: 32px;
     background-color: pink;
+  `;
+
+  const ModalContainer = styled.Pressable`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  const ModalView = styled.View`
+    background-color: #e6f4f1;
+    padding: 5px;
+    justify-content: center;
+    border-radius: 15px;
+    position: absolute;
+    right: 20px;
+    bottom: 180px;
+  `;
+
+  const ModalTextContainer = styled.Pressable`
+    padding: 3px;
+    margin: 5px;
+    padding: 10px 20px;
+  `;
+
+  const ModalText = styled.Text`
+    color: black;
+    font-size: ${({ theme }) => theme.smallTextSize};
   `;
 
   const loginInfo = useSelector((state) => {
@@ -97,7 +123,7 @@ export default function FriendList() {
   // friends profile click event
   function _profileClick(friendName) {
     console.log(
-      `Friend List Page: friend profile(name: ${friendName}) clicked`
+      `Friend List Page: friend profile(name: ${friendName}, email: null) clicked`
     );
   }
 
@@ -162,72 +188,56 @@ export default function FriendList() {
         <MaterialCommunityIcons name="dots-vertical" size={35} />
       </FreindSettingIconContainer>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+        <ModalContainer
+          onPress={() => {
+            setModalVisible(false);
+          }}
+        >
+          <ModalView>
+            <ModalTextContainer
+              style={({ pressed }) => [
+                {
+                  backgroundColor: pressed ? "lightgray" : "#e6f4f1",
+                  borderRadius: 10,
+                  justifContent: "center",
+                  alignItems: "center",
+                },
+              ]}
+              onPress={() => {
+                navigation.navigate("FriendSetting");
+                setModalVisible(false);
+              }}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View>
+              <ModalText>친구 관리</ModalText>
+            </ModalTextContainer>
+            <ModalTextContainer
+              style={({ pressed }) => [
+                {
+                  backgroundColor: pressed ? "lightgray" : "#e6f4f1",
+                  borderRadius: 10,
+                  justifContent: "center",
+                  alignItems: "center",
+                },
+              ]}
+              onPress={() => {
+                navigation.navigate("AddFriend");
+                setModalVisible(false);
+              }}
+            >
+              <ModalText>친구 추가</ModalText>
+            </ModalTextContainer>
+          </ModalView>
+        </ModalContainer>
       </Modal>
     </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-});
 
 // friends information >> key value, id == email

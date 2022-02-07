@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "styled-components/native";
 import { useSelector } from "react-redux";
 import LoginStack from "./LoginStack";
-import MainTab from "./MainTab";
+import MainStack from "./MainStack";
 import { theme } from "../data/theme";
 import { Loading } from "../components";
 
@@ -20,7 +20,7 @@ export default function Navigation() {
     <ThemeProvider theme={theme}>
       <StatusBar backgroundColor={theme.background} barStyle="dark-content" />
       <NavigationContainer>
-        {loginInfo ? <MainTab /> : <LoginStack />}
+        {loginInfo ? <MainStack /> : <LoginStack />}
         {progress && <Loading />}
       </NavigationContainer>
     </ThemeProvider>

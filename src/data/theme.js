@@ -17,10 +17,10 @@ export const theme = {
   basicPicture: "gray",
   loadingBackground: "black",
   loadingIndicator: "white",
-
   titleTextSize: "50px",
   pageTitleTextSize: "30px",
   normalTextSize: "18px",
+  smallTextSize: "15px",
   buttonTextSize: "20px",
   buttonHeight: "50px",
 };
