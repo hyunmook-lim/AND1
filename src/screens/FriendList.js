@@ -63,6 +63,7 @@ export default function FriendList({ navigation }) {
     flex: 1;
     align-items: center;
     justify-content: center;
+
   `;
 
   const ModalView = styled.View`
@@ -186,7 +187,7 @@ export default function FriendList({ navigation }) {
         }}
       >
         <MaterialCommunityIcons name="dots-vertical" size={35} />
-      </FreindSettingIconContainer>
+      </FreindSettingIconContainer> 
       <Modal
         animationType="fade"
         transparent={true}
@@ -194,12 +195,12 @@ export default function FriendList({ navigation }) {
         onRequestClose={() => {
           setModalVisible(false);
         }}
-      >
+      > 
         <ModalContainer
           onPress={() => {
             setModalVisible(false);
           }}
-        >
+        > 
           <ModalView>
             <ModalTextContainer
               style={({ pressed }) => [
